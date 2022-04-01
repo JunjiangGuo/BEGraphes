@@ -30,12 +30,53 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
+     *
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        boolean Res = false;
+        
+      
+        if(nodes.size() == 0) {
+        	return new Path(graph);
+        	//throw new IllegalArgumentException("List node empty.");
+        }
+        
+        if(nodes.size() == 1) {
+        	return new Path(graph,nodes.get(0));
+        	//throw new IllegalArgumentException("Only one node.");
+        }
+        for (int i=0;i<nodes.size()-1;i++){
+            for (int j=0;j<nodes.get(i).getNumberOfSuccessors();j++) {
+            	if (nodes.get(i+1)==graph.get(nodes.get(i).getId()).getSuccessors().get(j).getDestination()) {
+            		Res = true;
+            		break;
+            	}
+            }
+            if (Res==false){
+                throw new IllegalArgumentException("Two consecutive nodes in the list are not connected in the graph.");
+            }
+        }
+        
+        for (int i=0;i<nodes.size()-1;i++){
+        	double Travelt = Double.MAX_VALUE ;
+        	List <Arc> arcss = new ArrayList<Arc>();
+        	int n = 0;
+        	for (int j=0;j<nodes.get(i).getNumberOfSuccessors();j++) {
+        		if(nodes.get(i).getSuccessors().get(j).getDestination()==nodes.get(i+1)) { 			
+        			arcss.add(nodes.get(i).getSuccessors().get(j));       			
+        		}
+        	}
+        	for (int m=0;m<arcss.size();m++) {
+				double t = arcss.get(m).getMinimumTravelTime();
+				if (t<Travelt) {
+        			Travelt = t;
+        			n = m;		
+        		}
+			}
+        	arcs.add(arcss.get(n));
+        }
         return new Path(graph, arcs);
     }
 
@@ -51,12 +92,52 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
+  
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        
+        boolean Res = false;
+        if(nodes.size() == 0) {
+        	return new Path(graph);
+        	//throw new IllegalArgumentException("List node empty.");
+        }
+        
+        if(nodes.size() == 1) {
+        	return new Path(graph,nodes.get(0));
+        	//throw new IllegalArgumentException("Only one node.");
+        }
+        for (int i=0;i<nodes.size()-1;i++){
+            for (int j=0;j<nodes.get(i).getNumberOfSuccessors();j++) {
+            	if (nodes.get(i+1)==graph.get(nodes.get(i).getId()).getSuccessors().get(j).getDestination()) {
+            		Res = true;
+            		break;
+            	}
+            }
+            if (Res==false){
+                throw new IllegalArgumentException("Two consecutive nodes in the list are not connected in the graph.");
+            }
+        }
+        
+        for (int i=0;i<nodes.size()-1;i++){
+        	float lengtht = Float.MAX_VALUE ;
+        	List <Arc> arcss = new ArrayList<Arc>();
+        	int n = 0;
+        	for (int j=0;j<nodes.get(i).getNumberOfSuccessors();j++) {
+        		if(nodes.get(i).getSuccessors().get(j).getDestination()==nodes.get(i+1)) { 			
+        			arcss.add(nodes.get(i).getSuccessors().get(j));       			
+        		}
+        	}
+        	for (int m=0;m<arcss.size();m++) {
+				float t = arcss.get(m).getLength();
+				if (t<lengtht) {
+        			lengtht = t;
+        			n = m;		
+        		}
+			}
+        	arcs.add(arcss.get(n));
+        }
         return new Path(graph, arcs);
     }
 
@@ -198,7 +279,7 @@ public class Path {
      * 
      * @return true if the path is valid, false otherwise.
      * 
-     * @deprecated Need to be implemented.
+   
      */
     public boolean isValid() {
         if (isEmpty()) {
@@ -228,10 +309,10 @@ public class Path {
      * 
      * @return Total length of the path (in meters).
      * 
-     * @deprecated Need to be implemented.
+ 
      */
     public float getLength() {
-        int lengthtotal = 0;
+        float lengthtotal = 0;
         for (Arc arc : this.arcs) {
         	lengthtotal += arc.getLength();
         }
