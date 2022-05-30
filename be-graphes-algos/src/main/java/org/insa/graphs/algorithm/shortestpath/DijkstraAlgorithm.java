@@ -65,14 +65,14 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         		}
      
         		if(!SuccessorsLabel.getmarque()) {
-        			if (SuccessorsLabel.getCost()>current.getCost()+data.getCost(arcIter)) {
+        			if (SuccessorsLabel.getTotalCost()>current.getTotalCost()+data.getCost(arcIter)) {
         				if(SuccessorsLabel.inTas()) {
         					tas.remove(SuccessorsLabel);
         				}
         				else {
         					SuccessorsLabel.setInTas();;
         				}
-        				SuccessorsLabel.setCost(current.getCost()+(float)data.getCost(arcIter));
+        				SuccessorsLabel.setCost(current.getTotalCost()+(float)data.getCost(arcIter));
         				SuccessorsLabel.setfather(current);
         				tas.insert(SuccessorsLabel);
         				ListeArc[arcIter.getDestination().getId()]= arcIter;
