@@ -150,7 +150,7 @@ public class AstarTest {
 			
 			String mapName = "/home/yduan/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
 			
-			DijkstraTest test = new  DijkstraTest();
+			AstarTest test = new  AstarTest();
 			int origine;
 			int destination;
 			
@@ -187,7 +187,7 @@ public class AstarTest {
 		public void testDoScenarioTempsToulouse() throws Exception {
 			String mapName = "/home/yduan/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
 			
-			DijkstraTest test = new  DijkstraTest();
+			AstarTest test = new  AstarTest();
 			int origine;
 			int destination;
 			
